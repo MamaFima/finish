@@ -22,6 +22,11 @@ def profile(request):
 
     # Получаем заказы текущего пользователя
     orders = Order.objects.filter(user=request.user)
+
+    # Отладочный вывод для проверки данных
+    for order in orders:
+        print(f"Заказ ID: {order.id}, Статус: {order.status}")
+
     return render(request, 'accounts/profile.html', {'form': form, 'orders': orders})
 
 

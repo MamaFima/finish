@@ -61,16 +61,11 @@
                 <ul class="list-group">
                     {% for order in orders %}
                         <li class="list-group-item">
-                            <strong>Заказ №{{ order.id }}:</strong> {{ order.product.name }}<br>
+                            <strong>Заказ №{{ order.id }}:</strong> {{ order.product.name }}<br><br>
 
-                            Статус:
-                            <span class="badge
-                                {% if order.status == 'ordered' %} badge-info
-                                {% elif order.status == 'delivery' %} badge-warning
-                                {% elif order.status == 'completed' %} badge-success
-                                {% endif %}">
-                                {{ order.get_status_display }}
-                            </span><br>
+                            <p>Статус: {{ order.get_status_display }}</p>
+
+
                             Дата создания: {{ order.created_at|date:"d.m.Y H:i" }}
                             <!-- Кнопка для повторного заказа -->
                             <a href="{% url 'orders:create_order' order.product.id %}" class="btn btn-sm btn-secondary mt-2">Заказать еще раз</a>

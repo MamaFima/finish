@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from catalog.models import Product
 from .forms import OrderForm, ReviewForm
 from .models import Order
 from catalog.models import Product  # Импорт из приложения catalog
 from accounts.models import Review  # Импорт из приложения account
-
-
 
 
 @login_required
@@ -37,6 +34,9 @@ def create_order(request, product_id):
 @login_required
 def orders(request):
     user_orders = Order.objects.filter(user=request.user)
+    context = {
+        "user_orders": user_orders,
+    }
     return render(request, 'orders/orders.html', {'orders': user_orders})
 
 
@@ -49,20 +49,17 @@ def add_review(request, order_id):
             review = form.save(commit=False)
             review.product = order.product
             review.user = request.user
+            review.comment = form.cleaned_data['comment']  # Используем поле 'comment' для отзыва
+            review.rating = form.cleaned_data['rating']
             review.save()
             messages.success(request, 'Ваш отзыв успешно добавлен!')
-            return redirect('profile')
+            return redirect("view_reviews", product_id=order.product.id)
         else:
             messages.error(request, 'Пожалуйста, заполните все поля.')
     else:
         form = ReviewForm()
     return render(request, 'orders/add_review.html', {'form': form, 'order': order})
 
-
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
-from .models import Product, Review  # Убедитесь, что Review и Product импортированы
 
 @login_required
 def write_review(request, product_id):
@@ -72,9 +69,20 @@ def write_review(request, product_id):
         review_text = request.POST.get("review")
 
         if rating and review_text:
-            review = Review(user=request.user, product=product, rating=rating, review=review_text)
+            review = Review(user=request.user, product=product, rating=rating, comment=review_text)  # Заменяем 'review' на 'comment'
             review.save()
             messages.success(request, 'Ваш отзыв успешно сохранен!')
         else:
             messages.error(request, 'Заполните все поля для отзыва.')
-    return redirect("profile")  # Возможно, `profile` — это имя маршрута профиля, проверьте его точность
+    return redirect("profile")  # Проверьте, что 'profile' — это правильное имя маршрута для профиля
+
+
+@login_required
+def view_reviews(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    reviews = Review.objects.filter(product=product)
+    context = {
+        'product': product,
+        'reviews': reviews
+    }
+    return render(request, 'view_reviews.html', context)

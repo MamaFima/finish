@@ -10,6 +10,7 @@ urlpatterns = [
     path('create/<int:product_id>/', views.create_order, name='create_order'),
     path('add_review/<int:order_id>/', views.add_review, name='add_review'),
     path('write_review/<int:product_id>/', views.write_review, name='write_review'),
+    path('view_reviews/<int:product_id>/', views.view_reviews, name='view_reviews'),
     # Здесь маршруты только для orders
 ]
 
