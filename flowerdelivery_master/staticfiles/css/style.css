@@ -1,0 +1,62 @@
+/* Привязка футера к низу страницы */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.content {
+    min-height: 100vh; /* Контейнер, который будет занимать всю высоту экрана */
+    display: flex;
+    flex-direction: column;
+}
+
+.content .container {
+    flex: 1; /* Растягиваем основной контент */
+}
+
+footer {
+    background-color: #343a40; /* Темный фон */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+/* Полупрозрачный фон */
+.background-image {
+    background: url('/static/images/fon.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.3; /* Прозрачность фона */
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.9); /* Белый, слегка прозрачный фон для содержимого */
+}
+
+/* Цвет шапки */
+header {
+    background-color: #a8d5a8; /* Мягкий зеленый оттенок */
+    color: white;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+

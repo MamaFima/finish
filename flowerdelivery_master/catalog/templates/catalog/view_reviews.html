@@ -1,0 +1,26 @@
+<!-- catalog/templates/catalog/view_reviews.html -->
+{% extends 'base/base.html' %}
+
+{% block title %}Отзывы о продукте{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Отзывы о "{{ product.name }}"</h2>
+
+    {% if reviews %}
+        <ul class="list-group">
+            {% for review in reviews %}
+                <li class="list-group-item">
+                    <strong>{{ review.user.username }}</strong>
+                    <span class="badge bg-warning text-dark">{{ review.rating }} / 5</span>
+                    <p>{{ review.comment }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Отзывов пока нет.</p>
+    {% endif %}
+
+    <a href="{% url 'catalog' %}" class="btn btn-secondary mt-3">Вернуться в каталог</a>
+</div>
+{% endblock %}

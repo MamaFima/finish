@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Оформление заказа</h2>
+
+    <!-- Сообщения об успешном оформлении заказа -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Данные заказчика -->
+        <div class="form-group">
+            <label for="customer_name">ФИО заказчика</label>
+            <input type="text" class="form-control" id="customer_name" name="customer_name" value="{{ form.initial.customer_name }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="customer_phone">Контактный телефон заказчика</label>
+            <input type="tel" class="form-control" id="customer_phone" name="customer_phone" value="{{ form.initial.customer_phone }}" readonly>
+        </div>
+
+        <!-- Данные получателя -->
+        <h5 class="mt-4">Информация о получателе</h5>
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary mt-3">Оформить заказ</button>
+        <a href="{% url 'profile' %}" class="btn btn-secondary mt-3 ms-2">Перейти в личный кабинет</a>
+    </form>
+</div>
+{% endblock %}
+
+
+

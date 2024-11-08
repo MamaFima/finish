@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Мои заказы</h2>
+
+    {% if orders %}
+        <ul class="list-group">
+            {% for order in orders %}
+                <li class="list-group-item">
+                    <strong>Заказ №{{ order.id }}</strong> - {{ order.product.name }}<br>
+                    Статус: {{ order.get_status_display }}<br>
+                    Дата заказа: {{ order.created_at|date:"d.m.Y H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас нет активных заказов.</p>
+    {% endif %}
+</div>
+{% endblock %}

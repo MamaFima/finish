@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Каталог букетов{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Каталог букетов</h1>
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>Цена: {{ product.price }} руб.</strong></p>
+
+                    <!-- Рейтинг звездами -->
+                    <p class="card-text">Рейтинг:
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.average_rating %}
+                                <span style="color: #FFD700; font-size: 1.5em;">&#9733;</span>
+                            {% else %}
+                                <span style="color: #C0C0C0; font-size: 1.5em;">&#9733;</span>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+
+
+
+                    <!-- Кнопки с половинным размером -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'view_reviews' product.id %}" class="btn btn-outline-secondary w-50 me-1">Посмотреть отзывы</a>
+                        <a href="{% url 'orders:create_order' product.id %}" class="btn btn-primary w-50 ms-1">Заказать</a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

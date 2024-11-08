@@ -1,0 +1,87 @@
+/* Основные настройки страницы */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Избегаем горизонтальной прокрутки */
+}
+
+/* Шапка */
+header {
+    background-color: #68c683 !important;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Фон для всей страницы с размытием */
+.background-image {
+    background: url('/static/images/fon.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(4px); /* Добавляем размытие */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Полная ширина экрана */
+    height: 100vh; /* Полная высота экрана */
+    z-index: -1;
+}
+
+/* Контент */
+/* Контент */
+.content {
+    min-height: calc(100vh - 50px);
+    padding-bottom: 50px;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.6); /* Полупрозрачный белый фон для контента */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Легкая тень для визуального разделения */
+}
+
+/* Звезды рейтинга */
+.rating-stars .fa-star {
+    color: #FFD700; /* Золотой цвет для звездочек */
+    font-size: 1.2em; /* Размер звездочек */
+    margin-right: 2px;
+    display: inline-block;
+}
+
+
+
+
+
+/* Выровненные кнопки в карточке */
+.card .btn {
+    padding: 10px 0;
+    font-size: 1em;
+}
+
+
+
+/* Футер */
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Настройки карусели */
+.carousel-inner img {
+    max-height: 700px;
+    object-fit: cover;
+    width: 100%;
+}
+
+
+
+
+
