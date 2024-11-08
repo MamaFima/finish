@@ -9,7 +9,7 @@ from django.db.models import Avg
 def catalog(request):
     products = Product.objects.all()
     for product in products:
-        reviews = product.review_set.all()
+        reviews = product.reviews.all()
         product.average_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
     return render(request, 'catalog/catalog.html', {'products': products})
 

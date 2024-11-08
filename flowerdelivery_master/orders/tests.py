@@ -1,10 +1,10 @@
+# orders/tests.py
 from django.test import TestCase
-
-# Create your tests here.
 from django.contrib.auth.models import User
 from orders.models import Order
 from catalog.models import Product
 from django.urls import reverse
+from django.utils import timezone
 
 class OrderTest(TestCase):
 
@@ -20,8 +20,9 @@ class OrderTest(TestCase):
             delivery_time=timezone.now().time(),
             customer_name="Test Customer",
             customer_phone="123456789",
-            status='completed')
-        self.assertEqual(order.status, 'ordered')
+            status='completed'
+        )
+        self.assertEqual(order.status, 'completed')
         self.assertEqual(order.customer_name, 'Test Customer')
 
     def test_add_review(self):
@@ -38,7 +39,13 @@ class OrderTest(TestCase):
         self.assertEqual(order.product.reviews.first().rating, 5)
 
     def test_status_change(self):
-        order = Order.objects.create(user=self.user, product=self.product, status='ordered')
+        order = Order.objects.create(
+            user=self.user,
+            product=self.product,
+            status='ordered',
+            delivery_date=timezone.now().date(),
+            delivery_time=timezone.now().time()
+        )
         order.status = 'completed'
         order.save()
         self.assertEqual(Order.objects.get(id=order.id).status, 'completed')
